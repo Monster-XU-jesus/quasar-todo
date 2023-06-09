@@ -43,11 +43,11 @@ const events = {
     todoStore.addTodo({ text, level: 0 });
     console.log(todoStore.todoList);
   },
-  deleteTodo: (index: number) => {
-    todoStore.deleteTodo(index);
+  deleteTodo: (todo: Todo, userId?: string) => {
+    todoStore.deleteTodo(todo);
   },
-  doneTodo: (index: number) => {
-    todoStore.modifyTodo(index);
+  doneTodo: (todo: Todo, userId?: string) => {
+    todoStore.modifyTodo(todo);
   },
 };
 </script>

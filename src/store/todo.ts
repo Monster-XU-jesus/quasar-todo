@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { nanoid } from 'nanoid';
 import { Todo } from '../types/todo';
 
 interface State {
@@ -13,19 +14,28 @@ export const useTodoStore = defineStore('todo', {
     // 新添todo
     addTodo(params: Todo, userId?: string) {
       console.log('store save');
+      const id = nanoid();
       const createdAt = new Date();
       const done = false;
-      this.todoList.push({ ...params, createdAt, done });
+      this.todoList.push({ ...params, createdAt, done, id });
     },
     // 删除todo
-    deleteTodo(index: number) {
-      this.todoList.splice(index, 1);
+    deleteTodo(todo: Todo, userId?: string) {
+      // 找到对应todo索引
+      const todoIndex = this.todoList.findIndex((item) => item.id === todo.id);
+      if (todoIndex < 0) {
+        throw new Error(`Can't find todo item [${todo.id}]`);
+      }
+      this.todoList.splice(todoIndex, 1);
       console.log('删除todo');
     },
-    // 标记todo为完成
-    modifyTodo(index: number) {
-      this.todoList[index].done = true;
-      console.log(this.todoList);
+    // 标记todo为完成或者未完成
+    modifyTodo(todo: Todo, userId?: string) {
+      const todoIndex = this.todoList.findIndex((item) => item.id === todo.id);
+      if (todoIndex < 0) {
+        throw new Error(`Can't find todo item [${todo.id}]`);
+      }
+      this.todoList[todoIndex].done = !this.todoList[todoIndex].done;
       console.log('完成todo');
     },
   },

@@ -1,9 +1,9 @@
 <template>
-  <q-item v-for="(item, index) in todoList" :key="index">
+  <q-item v-for="item in todoList" :key="item.id">
     <q-item-section>{{ item }}</q-item-section>
     <q-item-section side>
-      <q-btn label="Delete" @click="deleteTodo(index)" />
-      <q-btn label="Done" @click="$emit('done', index)" />
+      <q-btn label="Delete" @click="deleteTodo(item)" />
+      <q-btn label="Done" @click="$emit('done', item)" />
     </q-item-section>
   </q-item>
 </template>
@@ -19,8 +19,8 @@ const props = defineProps({
   },
 });
 
-const deleteTodo = (index: number) => {
-  emits('delete', index);
+const deleteTodo = (todo: Todo, userId?: string) => {
+  emits('delete', todo);
 };
 </script>
 

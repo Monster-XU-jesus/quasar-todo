@@ -23,13 +23,23 @@ export const useTodoStore = defineStore('todo', {
       console.log('删除todo');
     },
     // 标记todo为完成
-    doneTodo() {
+    modifyTodo(index: number) {
+      this.todoList[index].done = true;
+      console.log(this.todoList);
       console.log('完成todo');
     },
   },
   getters: {
-    getAllTodoList: (state): Todo[] => {
-      return state.todoList;
+    getNotDoneTodoList: (state): Todo[] => {
+      return state.todoList.filter((item) => item.done !== true);
+    },
+    getDoneTodoList: (state): Todo[] => {
+      return state.todoList.filter((item) => item.done === true);
+    },
+    // 获取全部todo列表
+    getAllTodoList: (): Todo[] => {
+      const store = useTodoStore();
+      return [...store.getNotDoneTodoList, ...store.getDoneTodoList];
     },
   },
 });

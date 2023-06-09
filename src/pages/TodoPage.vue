@@ -20,8 +20,11 @@ import { reactive, ref, computed } from 'vue';
 
 // use store
 const todoStore = useTodoStore();
+let checked = ref(false); // 是否显示所有
 
-const todoList = computed<Todo[]>(() => todoStore.getAllTodoList);
+const todoList = computed<Todo[]>(() =>
+  checked.value ? todoStore.getAllTodoList : todoStore.getNotDoneTodoList
+);
 const notDoneList = ref();
 const haveNoItem = ref();
 const todayMessage = ref();
@@ -42,11 +45,9 @@ const events = {
   },
   deleteTodo: (index: number) => {
     todoStore.deleteTodo(index);
-    console.log('delete');
   },
-  doneTodo: () => {
-    todoStore.doneTodo();
-    console.log('done');
+  doneTodo: (index: number) => {
+    todoStore.modifyTodo(index);
   },
 };
 </script>

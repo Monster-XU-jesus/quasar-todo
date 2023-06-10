@@ -1,6 +1,6 @@
 <template>
   <div>这里是todo主页</div>
-  <InputCard @saveTodo="events.saveTodo"></InputCard>
+  <InputCard @saveTodo="events.saveTodo" v-model:showAll="checked"></InputCard>
   <div>下方是todo列表展示</div>
   <q-list bordered separator>
     <TodoCard

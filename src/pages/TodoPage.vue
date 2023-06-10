@@ -4,9 +4,9 @@
   <div>下方是todo列表展示</div>
   <q-list bordered separator>
     <TodoCard
-      :todoList="todoList"
+      :todoList="computedRefs.todoList"
       @delete="events.deleteTodo"
-      @done="events.doneTodo"
+      @toggle="events.toggleTodo"
     ></TodoCard>
   </q-list>
 </template>
@@ -22,12 +22,21 @@ import { reactive, ref, computed } from 'vue';
 const todoStore = useTodoStore();
 let checked = ref(false); // 是否显示所有
 
-const todoList = computed<Todo[]>(() =>
-  checked.value ? todoStore.getAllTodoList : todoStore.getNotDoneTodoList
-);
+const todoList = computed<Todo[]>(() => {
+  console.log(todoList);
+  return checked.value
+    ? todoStore.getAllTodoList
+    : todoStore.getNotDoneTodoList;
+});
 const notDoneList = ref();
 const haveNoItem = ref();
 const todayMessage = ref();
+const computedRefs = reactive({
+  todoList,
+  notDoneList,
+  haveNoItem,
+  todayMessage,
+});
 
 // 选择要显示的todo类型
 const todoShowType = reactive({
@@ -46,7 +55,7 @@ const events = {
   deleteTodo: (todo: Todo, userId?: string) => {
     todoStore.deleteTodo(todo);
   },
-  doneTodo: (todo: Todo, userId?: string) => {
+  toggleTodo: (todo: Todo, userId?: string) => {
     todoStore.modifyTodo(todo);
   },
 };

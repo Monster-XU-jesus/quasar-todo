@@ -36,6 +36,8 @@ export const useTodoStore = defineStore('todo', {
         throw new Error(`Can't find todo item [${todo.id}]`);
       }
       this.todoList[todoIndex].done = !this.todoList[todoIndex].done;
+      // 操作todo使得页面重新渲染，不走diff
+      this.todoList.splice(todoIndex, 1, todo);
       console.log('完成todo');
     },
   },
@@ -47,9 +49,13 @@ export const useTodoStore = defineStore('todo', {
       return state.todoList.filter((item) => item.done === true);
     },
     // 获取全部todo列表
-    getAllTodoList: (): Todo[] => {
+    getAllTodoList: (state): Todo[] => {
       const store = useTodoStore();
       return [...store.getNotDoneTodoList, ...store.getDoneTodoList];
+      // return [
+      //   ...state.todoList.filter((x) => x.done),
+      //   ...state.todoList.filter((x) => !x.done),
+      // ];
     },
   },
 });

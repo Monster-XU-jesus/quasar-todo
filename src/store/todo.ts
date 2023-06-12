@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
 import { nanoid } from 'nanoid';
+
 import { Todo } from '../types/todo';
 
+import { test } from '../utils/api';
 interface State {
   todoList: Todo[];
 }
@@ -18,6 +20,7 @@ export const useTodoStore = defineStore('todo', {
       const createdAt = new Date();
       const done = false;
       this.todoList.push({ ...params, createdAt, done, id });
+      test();
     },
     // 删除todo
     deleteTodo(todo: Todo, userId?: string) {

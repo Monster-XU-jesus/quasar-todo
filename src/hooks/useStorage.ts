@@ -19,7 +19,7 @@ const getStorageItem = (storage: Storage) => {
 
 const setStorageItem = (storage: Storage) => {
   // val 不用设置为any，因为传进来的只可能是any
-  return function setItem(key: string, val: string): void {
+  return function setItem<T>(key: string, val: T): void {
     storage.setItem(key, JSON.stringify(val));
   };
 };

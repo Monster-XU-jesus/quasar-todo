@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 
 import { Todo } from '../types/todo';
 
-import { test } from '../utils/api';
+import { test, sacveData, fetchData } from '../utils/api';
 interface State {
   todoList: Todo[];
 }
@@ -15,12 +15,13 @@ export const useTodoStore = defineStore('todo', {
   actions: {
     // 新添todo
     addTodo(params: Todo, userId?: string) {
-      console.log('store save');
       const id = nanoid();
       const createdAt = new Date();
       const done = false;
       this.todoList.push({ ...params, createdAt, done, id });
-      test();
+      sacveData(this.todoList, userId);
+      console.log('======');
+      console.log(fetchData());
     },
     // 删除todo
     deleteTodo(todo: Todo, userId?: string) {

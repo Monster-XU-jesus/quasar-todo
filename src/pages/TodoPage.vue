@@ -23,7 +23,6 @@ const todoStore = useTodoStore();
 let checked = ref(false); // 是否显示所有
 
 const todoList = computed<Todo[]>(() => {
-  console.log(todoList);
   return checked.value
     ? todoStore.getAllTodoList
     : todoStore.getNotDoneTodoList;
@@ -50,7 +49,6 @@ const todoShowType = reactive({
 const events = {
   saveTodo: (text: string) => {
     todoStore.addTodo({ text, level: 0 });
-    console.log(todoStore.todoList);
   },
   deleteTodo: (todo: Todo, userId?: string) => {
     todoStore.deleteTodo(todo);

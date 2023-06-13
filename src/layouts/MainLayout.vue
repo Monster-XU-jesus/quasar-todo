@@ -1,5 +1,5 @@
 <template>
-  <div class="q-gutter-md" style="max-width: 300px">
+  <div class="q-gutter-md">
     <router-view></router-view>
   </div>
 </template>

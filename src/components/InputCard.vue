@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <q-btn label="save todo" @click="save" />
-    <q-toggle v-model="checked" left-label></q-toggle>
+  <div class="q-gutter-sm q-my-md">
     <q-input
       filled
       v-model="text"
       placeholder="Enter somethings..."
       @keydown.enter.prevent="save"
     />
+    <div class="q-gutter-xs q-mt-sm flex justify-between">
+      <q-btn color="primary" label="save todo" @click="save" />
+      <q-toggle v-model="checked" left-label label="Show all todos" />
+    </div>
   </div>
 </template>
 

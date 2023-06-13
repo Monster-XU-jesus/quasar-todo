@@ -1,14 +1,27 @@
 <template>
-  <div>这里是todo主页</div>
-  <InputCard @saveTodo="events.saveTodo" v-model:showAll="checked"></InputCard>
-  <div>下方是todo列表展示</div>
-  <q-list bordered separator>
-    <TodoCard
-      :todoList="computedRefs.todoList"
-      @delete="events.deleteTodo"
-      @toggle="events.toggleTodo"
-    ></TodoCard>
-  </q-list>
+  <q-layout>
+    <q-page-container>
+      <q-page class="flex flex-center">
+        <div class="todo-container">
+          <div style="max-width: 500px">
+            <div class="text-h4 text-center q-my-md">这里是todo主页</div>
+            <InputCard
+              @saveTodo="events.saveTodo"
+              v-model:showAll="checked"
+            ></InputCard>
+            <div class="text-h6 text-center q-my-md">下方是todo列表展示</div>
+            <q-list bordered dense :separator="false">
+              <TodoCard
+                :todoList="computedRefs.todoList"
+                @delete="events.deleteTodo"
+                @toggle="events.toggleTodo"
+              ></TodoCard>
+            </q-list>
+          </div>
+        </div>
+      </q-page>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script setup lang="ts">
@@ -59,4 +72,20 @@ const events = {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.todo-container {
+  width: 50vw;
+  height: auto;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  padding: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .todo-container {
+    width: 100vw;
+    height: 100%;
+  }
+}
+</style>

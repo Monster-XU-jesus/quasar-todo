@@ -3,14 +3,14 @@ import { nanoid } from 'nanoid';
 
 import { Todo } from '../types/todo';
 
-import { test, sacveData, fetchData } from '../utils/api';
+import { saveData, fetchData } from '../utils/api';
 interface State {
   todoList: Todo[];
 }
 
 export const useTodoStore = defineStore('todo', {
   state: (): State => ({
-    todoList: [],
+    todoList: fetchData(),
   }),
   actions: {
     // 新添todo
@@ -19,9 +19,7 @@ export const useTodoStore = defineStore('todo', {
       const createdAt = new Date();
       const done = false;
       this.todoList.push({ ...params, createdAt, done, id });
-      sacveData(this.todoList, userId);
-      console.log('======');
-      console.log(fetchData());
+      saveData(this.todoList, userId);
     },
     // 删除todo
     deleteTodo(todo: Todo, userId?: string) {
@@ -31,6 +29,7 @@ export const useTodoStore = defineStore('todo', {
         throw new Error(`Can't find todo item [${todo.id}]`);
       }
       this.todoList.splice(todoIndex, 1);
+      saveData(this.todoList, userId);
       console.log('删除todo');
     },
     // 标记todo为完成或者未完成
@@ -42,6 +41,7 @@ export const useTodoStore = defineStore('todo', {
       this.todoList[todoIndex].done = !this.todoList[todoIndex].done;
       // 操作todo使得页面重新渲染，不走diff
       this.todoList.splice(todoIndex, 1, todo);
+      saveData(this.todoList, userId);
       console.log('完成todo');
     },
   },

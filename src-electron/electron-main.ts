@@ -45,6 +45,7 @@ function createWindow() {
 
   mainWindow.on('closed', () => {
     mainWindow = undefined;
+    app.quit();
   });
 }
 

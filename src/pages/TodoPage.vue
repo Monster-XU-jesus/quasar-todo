@@ -30,11 +30,13 @@ import TodoCard from 'src/components/TodoCard.vue';
 import { Todo } from '@/types/todo';
 import { useTodoStore } from '../store/todo';
 import { reactive, ref, computed } from 'vue';
+import { useQuasar } from 'quasar';
 
 // use store
 const todoStore = useTodoStore();
 let checked = ref(false); // 是否显示所有
 
+const $q = useQuasar();
 const todoList = computed<Todo[]>(() => {
   return checked.value
     ? todoStore.getAllTodoList
@@ -61,6 +63,15 @@ const todoShowType = reactive({
 // 存放todo相关操作
 const events = {
   saveTodo: (text: string) => {
+    console.log($q);
+
+    if (text.length === 0) {
+      $q.dialog({
+        title: '提示',
+        message:
+          'The value you entered is null. Please fill in the value and try again',
+      });
+    }
     todoStore.addTodo({ text, level: 0 });
   },
   deleteTodo: (todo: Todo, userId?: string) => {

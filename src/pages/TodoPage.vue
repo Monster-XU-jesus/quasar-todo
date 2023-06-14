@@ -1,10 +1,13 @@
 <template>
-  <q-layout>
+  <q-layout view="lHr Lpr lFr">
+    <q-header reveal :reveal-offset="20">
+      <div class="text-h4 text-center q-my-md">这里是todo主页</div>
+    </q-header>
+
     <q-page-container>
       <q-page class="flex flex-center">
         <div class="todo-container">
           <div style="max-width: 500px">
-            <div class="text-h4 text-center q-my-md">这里是todo主页</div>
             <InputCard
               @saveTodo="events.saveTodo"
               v-model:showAll="checked"
@@ -21,6 +24,11 @@
         </div>
       </q-page>
     </q-page-container>
+    <q-footer bordered>
+      <q-toolbar>
+        <q-toolbar-title>Footer</q-toolbar-title>
+      </q-toolbar>
+    </q-footer>
   </q-layout>
 </template>
 
@@ -37,6 +45,8 @@ const todoStore = useTodoStore();
 let checked = ref(false); // 是否显示所有
 
 const $q = useQuasar();
+
+let xxx = ref(true);
 const todoList = computed<Todo[]>(() => {
   return checked.value
     ? todoStore.getAllTodoList
@@ -86,7 +96,7 @@ const events = {
 <style scoped>
 .todo-container {
   width: 50vw;
-  height: auto;
+  /* height: auto; */
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: auto;

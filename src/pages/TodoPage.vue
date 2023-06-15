@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import InputCard from 'src/components/InputCard.vue';
 import TodoCard from 'src/components/TodoCard.vue';
-import { Todo } from '@/types/todo';
+import { Todo } from '../types/todo';
 import { useTodoStore } from '../store/todo';
 import { reactive, ref, computed } from 'vue';
 import { useQuasar } from 'quasar';

@@ -1,31 +1,43 @@
 <template>
   <div>
     <h1>登陆页面</h1>
+    <q-btn
+      @click="
+        onClickLogin(loginProviderList[0].provider, loginProviderList[0].name)
+      "
+      >{{ loginProviderList[0].name }}</q-btn
+    >
   </div>
 </template>
 
 <script setup lang="ts">
-import { GithubAuthProvider, getAuth } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-// import { auth } from '@/plugins/firebase';
-// import { app } from '../../plugins/firebase';
+import {
+  GithubAuthProvider,
+  AuthProvider,
+  getAuth,
+  onAuthStateChanged,
+  signInWithPopup,
+} from 'firebase/auth';
+import { useFirebaseStore } from '../../store/firebase';
 
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyBDWIO7dm1jsj4bzmtxsBIc5_O9aXQSTsA',
-//   authDomain: 'quasar-todo-51c12.firebaseapp.com',
-//   projectId: 'quasar-todo-51c12',
-//   storageBucket: 'quasar-todo-51c12.appspot.com',
-//   messagingSenderId: '991910200659',
-//   appId: '1:991910200659:web:38f7b4f919ec92c4ba8da6',
-//   measurementId: 'G-WQNPTP309X',
-// };
-// initializeApp(firebaseConfig);
+const { loginWithFirebase } = useFirebaseStore();
 
-// const provider = new GithubAuthProvider();
-// const auth = getAuth();
-// console.log(auth);
+const loginProviderList = [
+  {
+    name: 'Github',
+    provider: new GithubAuthProvider(),
+    color: 'primary',
+  },
+];
 
 console.log('这里是登陆页面');
+
+// 点击登录
+const onClickLogin = (provider: AuthProvider, name: string) => {
+  console.log(123);
+  // 传入凭证和名字用作存储
+  loginWithFirebase(provider, name);
+};
 </script>
 
 <style scoped></style>

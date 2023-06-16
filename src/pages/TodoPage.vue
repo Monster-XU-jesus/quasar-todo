@@ -33,20 +33,25 @@
 </template>
 
 <script setup lang="ts">
+import { reactive, ref, computed } from 'vue';
+import { useQuasar } from 'quasar';
 import InputCard from 'src/components/InputCard.vue';
 import TodoCard from 'src/components/TodoCard.vue';
 import { Todo } from '../types/todo';
+
 import { useTodoStore } from '../store/todo';
-import { reactive, ref, computed } from 'vue';
-import { useQuasar } from 'quasar';
+import { useFirebaseStore } from '../store/firebase';
 
 // use store
 const todoStore = useTodoStore();
+const fireBaseStore = useFirebaseStore();
 let checked = ref(false); // 是否显示所有
+
+console.log('-----');
+console.log(fireBaseStore.changed);
 
 const $q = useQuasar();
 
-let xxx = ref(true);
 const todoList = computed<Todo[]>(() => {
   return checked.value
     ? todoStore.getAllTodoList

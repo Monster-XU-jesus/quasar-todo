@@ -45,12 +45,13 @@ import { useFirebaseStore } from '../store/firebase';
 // use store
 const todoStore = useTodoStore();
 const fireBaseStore = useFirebaseStore();
+const $q = useQuasar();
+
 let checked = ref(false); // 是否显示所有
 
-console.log('-----');
-console.log(fireBaseStore.changed);
-
-const $q = useQuasar();
+console.log(fireBaseStore.isRegister);
+fireBaseStore.isRegister = true;
+console.log(fireBaseStore.isRegister);
 
 const todoList = computed<Todo[]>(() => {
   return checked.value

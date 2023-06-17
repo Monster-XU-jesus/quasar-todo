@@ -9,16 +9,19 @@ import {
   browserSessionPersistence,
 } from 'firebase/auth';
 import { defineStore } from 'pinia';
+import useStorage from '../hooks/useStorage';
+
+const { localStorage } = useStorage();
 
 export const useFirebaseStore = defineStore('firebase', () => {
   const auth = getAuth();
-  let changed = false;
+  const isRegister = localStorage.getItem<boolean>('isRegister') ? true : false; // 是否登录过
+  const certificate = 'github'; // 登录成功后的凭证
 
   async function loginWithFirebase(provider: AuthProvider, name: string) {
     try {
       await auth.setPersistence(browserSessionPersistence);
       const result = await signInWithRedirect(auth, provider);
-      changed = true;
       console.log(result);
     } catch (error) {
       console.log('登陆失败: ', error);
@@ -27,6 +30,7 @@ export const useFirebaseStore = defineStore('firebase', () => {
 
   return {
     loginWithFirebase,
-    changed,
+    isRegister,
+    certificate,
   };
 });

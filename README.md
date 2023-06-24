@@ -1,6 +1,7 @@
 # todo APP (quasar-todo)
 
 该项目通过 quasar + Vue3 + Typescript + Electron 实现一个简单的待办事项，可作为 TS 的练手项目（当然做的还是有点简陋的）
+
 目前实现的功能有：
 
 + 输入框输入待办事项同步到显示区域

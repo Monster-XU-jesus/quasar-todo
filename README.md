@@ -12,6 +12,14 @@
 
 如有问题，欢迎交流学习~ 
 
+## 展示页面
+1. 登录页面（通过firebase实现）
+<img width="1017" alt="image" src="https://github.com/Monster-XU-jesus/quasar-todo/assets/71326725/102b7bcf-d076-4169-add5-8446e2c90144">
+
+2. 待办事项页面
+<img width="1000" alt="image" src="https://github.com/Monster-XU-jesus/quasar-todo/assets/71326725/bfa06a1b-b4fd-4322-878d-734b503be40e">
+
+
 ## Install the dependencies
 ```bash
 yarn
